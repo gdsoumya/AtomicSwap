@@ -56,7 +56,7 @@ contract AtomicSwap is ReentrancyGuard {
     // admin account
     address payable admin;
     // contract active state
-    bool active;
+    bool public active;
 
     // swaps
     mapping(bytes32 => Swap) public swaps;
