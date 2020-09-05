@@ -2,9 +2,9 @@ const invokeContract = require("../util/invokeContract");
 const init = require("../init");
 
 const secret =
-    "0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a",
+    "0x65df6f8f03439232780755c26560398280be8f4af49e0813b1e8132819d2a371",
   secretHash =
-    "0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd";
+    "0xecb99bf78f9a21af53b860e5f4dd007555a55f590a93222b58230fc43751c4ea";
 
 init().then(() => {
   invokeContract(0, "redeem", `(Pair ${secretHash} ${secret})`, 100000, 300)
