@@ -1,19 +1,19 @@
 const initTezos = require("../library/tezos/init");
 const initEthereum = require("../library/ethereum/init");
 const config = require("./config.json");
-const initiateWait = require("../library/ethereum/initiateWait");
+const initiateWait = require("../library/tezos/initiateWait");
 const tezosBalance = require("../library/tezos/getAccountBalance");
 const ethBalance = require("../library/ethereum/getAccountBalance");
 const storeTezos = require("../library/tezos/store");
 const storeEth = require("../library/ethereum/store");
 const getSwapTez = require("../library/tezos/getSwap");
 const getSwapEth = require("../library/ethereum/getSwap");
-const addCounterParty = require("../library/ethereum/addCounterParty");
-const redeem = require("../library/tezos/redeem");
-const getSwaps = require("../library/tezos/getSwaps");
+const addCounterParty = require("../library/tezos/addCounterParty");
+const redeem = require("../library/ethereum/redeem");
+const getSwaps = require("../library/ethereum/getSwaps");
 const getConversionRate = require("../library/common/getConversionRate");
 const reader = require("readline-sync");
-const getRedeemedSwap = require("../library/ethereum/getRedeemedSwap");
+const getRedeemedSwap = require("../library/tezos/getRedeemedSwap");
 
 const showUserDetails = async (web3) => {
   const balanceTez = await tezosBalance(storeTezos.keyStore.publicKeyHash);
@@ -34,15 +34,15 @@ const showUserDetails = async (web3) => {
   );
 };
 
-const waitCompletion = (hashedSecret) => {
+const waitCompletion = (web3, hashedSecret) => {
   const id = setInterval(async () => {
-    const swp = await getSwapEth(hashedSecret);
+    const swp = await getSwapTez(hashedSecret);
     console.log("WAITING TO COMPLETE SWAP");
-    if (swp.initiator_tez != "" && swp.refundTimestamp != "0") return;
+    if (swp != undefined) return;
     clearInterval(id);
     console.log("\nCOMPLETING SWAP");
     const secret = await getRedeemedSwap(hashedSecret);
-    await redeem(hashedSecret, secret);
+    await redeem(web3, hashedSecret, secret);
   }, 180000);
 };
 
@@ -61,40 +61,39 @@ const Start = async () => {
   console.log("\nSELECT YOUR SWAP : \n");
   swaps.forEach((swp, i) => {
     console.log(
-      `${i + 1}. Hash : ${swp.hashedSecret}\nXTZ-Value: ${
-        swp.value / 1000000
-      }XTZ\nETH To Pay: ${swp.value / (rate * 1000000)}`
+      `${i + 1}. Hash : ${swp.hashedSecret}\nETH-Value: ${
+        swp.value / Math.pow(10, 18)
+      }ETH\nXTZ To Pay: ${(swp.value * rate) / Math.pow(10, 18)}XTZ`
     );
   });
   let swapno = reader.question(`Enter Swap No. to respond : `);
+  const req_swap = swaps[swapno - 1];
   console.log(
     `\nSTARTING SWAP RESPONSE FOR : \nHash : ${
-      swaps[swapno - 1].hashedSecret
-    }\nXTZ-Value: ${swaps[swapno - 1].value / 1000000}XTZ\nETH To Pay: ${
-      swaps[swapno - 1].value / (rate * 1000000)
-    }`
+      req_swap.hashedSecret
+    }\nXTZ-Value: ${req_swap.value / Math.pow(10, 18)}XTZ\nETH To Pay: ${
+      (req_swap.value * rate) / Math.pow(10, 18)
+    }XTZ`
   );
 
   //create new swap response on ethereum
-  const req_swap = swaps[swapno - 1];
   await initiateWait(
-    web3,
+    storeEth.keyStore.address,
+    Math.round((req_swap.value * rate) / Math.pow(10, 12)).toString(),
     req_swap.hashedSecret,
-    req_swap.refundTimestamp - 3600,
-    storeTezos.keyStore.publicKeyHash,
-    (req_swap.value / (rate * 1000000)).toString()
+    req_swap.refundTimestamp - 3600
   );
   console.log("\nSWAP GENERATED | HASH: ", req_swap.hashedSecret);
 
   // watch swap response
   const tid = setInterval(async () => {
-    const swp = await getSwapTez(req_swap.hashedSecret);
+    const swp = await getSwapEth(req_swap.hashedSecret);
     console.log("CHECKING FOR SWAP RESPONSE");
-    if (swp.participant != storeTezos.keyStore.publicKeyHash) return;
+    if (swp.participant != storeEth.keyStore.address) return;
     clearInterval(tid);
     console.log("\nA SWAP RESPONSE FOUND : \n", swp);
-    await addCounterParty(web3, req_swap.hashedSecret, swp.initiator_eth);
-    waitCompletion(req_swap.hashedSecret);
+    await addCounterParty(swp.initiator_tez, req_swap.hashedSecret);
+    waitCompletion(web3, req_swap.hashedSecret);
   }, 180000);
 };
 Start();

@@ -1,5 +1,4 @@
 const { ConseilDataClient } = require("conseiljs");
-const init = require("./init");
 const config = require("../../globalConfig.json");
 
 const parseValue = (e) => {
@@ -13,7 +12,7 @@ const parseValue = (e) => {
   };
 };
 
-module.exports = async () => {
+module.exports = async (hashedSecret) => {
   const data = await ConseilDataClient.executeEntityQuery(
     config.tezos.conseilServer,
     "tezos",
@@ -53,11 +52,12 @@ module.exports = async () => {
       limit: 1000,
     }
   );
-  let swaps = [];
-  data.forEach((e) => {
-    swaps.push(parseValue(e));
-  });
-  return swaps;
+  for (let i = 0; i < data.length; ++i) {
+    const swp = parseValue(data[i]);
+    if (swp.parameters.hashedSecret == hashedSecret)
+      return swp.parameters.secret;
+  }
+  return "";
 };
 
 // getReedemedSwap().then(console.log);

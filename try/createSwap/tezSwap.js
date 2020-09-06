@@ -44,6 +44,7 @@ const waitCompletion = (web3, secret) => {
 };
 
 const Start = async () => {
+  console.log("STARTING XTZ->ETH SWAP\n");
   // Initialize network connections
   await initTezos(config.tezos.private_key);
   const web3 = initEthereum(config.ethereum.RPC, config.ethereum.private_key);

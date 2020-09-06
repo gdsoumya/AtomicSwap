@@ -12,6 +12,7 @@ module.exports = async (secretHash) => {
     15534,
     packedKey
   );
+  if (jsonData == undefined) return jsonData;
   return {
     hashedSecret:
       "0x" +

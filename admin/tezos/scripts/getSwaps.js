@@ -22,10 +22,12 @@ const parseValue = (michelsonData) => {
   const jsonData = JSON.parse(michelineData);
 
   return {
-    hashedSecret: JSONPath({
-      path: "$.args[0].args[0].bytes",
-      json: jsonData,
-    })[0],
+    hashedSecret:
+      "0x" +
+      JSONPath({
+        path: "$.args[0].args[0].bytes",
+        json: jsonData,
+      })[0],
     initiator: TezosMessageUtils.readAddress(
       JSONPath({ path: "$.args[0].args[1].args[0].bytes", json: jsonData })[0]
     ),

@@ -16,6 +16,7 @@ const getSwap = async (secretHash) => {
     undefined,
     config.chain_id
   );
+  console.log(jsonData);
   return {
     hashedSecret:
       "0x" +
@@ -54,5 +55,5 @@ const getSwap = async (secretHash) => {
   };
 };
 getSwap(
-  "0xfa45bdbbf85932ae5b92aeb67fdd65d57716458a59db8d76ebc64c8675bc03ba"
+  "0xb347704771c6167a822a67e238c88fa2a569c04707c84000f75889b5f06f34b6"
 ).then(console.log);
