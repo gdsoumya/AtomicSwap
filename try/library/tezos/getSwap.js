@@ -1,20 +1,16 @@
 const { TezosNodeReader, TezosMessageUtils } = require("conseiljs");
-const config = require("../../config/tez-config.json");
-const init = require("../../tezos/init");
+const config = require("../../globalConfig.json");
 const { JSONPath } = require("jsonpath-plus");
 
-const getSwap = async (secretHash) => {
-  await init();
+module.exports = async (secretHash) => {
   secretHash = secretHash.substring(2);
   const packedKey = TezosMessageUtils.encodeBigMapKey(
     Buffer.from(TezosMessageUtils.writePackedData(secretHash, "bytes"), "hex")
   );
   const jsonData = await TezosNodeReader.getValueForBigMapKey(
-    config.RPC,
+    config.tezos.RPC,
     15534,
-    packedKey,
-    undefined,
-    config.chain_id
+    packedKey
   );
   return {
     hashedSecret:
@@ -53,6 +49,4 @@ const getSwap = async (secretHash) => {
     ),
   };
 };
-getSwap(
-  "0xfa45bdbbf85932ae5b92aeb67fdd65d57716458a59db8d76ebc64c8675bc03ba"
-).then(console.log);
+// getSwap("0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd");

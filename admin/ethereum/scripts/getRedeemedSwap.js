@@ -16,5 +16,5 @@ const getReedemedSwap = async (secretHash) => {
 };
 
 getReedemedSwap(
-  "0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd"
+  "0xa881ec2b066a70d6265dabd60d1ef5f6bae725ac9e9846e43b91a48db4addcd4"
 ).then((res) => console.log(res[0].returnValues["_secret"]));

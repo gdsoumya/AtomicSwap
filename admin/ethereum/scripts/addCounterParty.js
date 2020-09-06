@@ -21,6 +21,6 @@ const Test = async (secret, ethAccount) => {
 
 //Tezos Addr to transfer the converted crypto and amount to convert in Eth
 Test(
-  "0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd",
-  "0x97fCF91d8C840E5B44157664082d972eF8542476"
+  "0xa881ec2b066a70d6265dabd60d1ef5f6bae725ac9e9846e43b91a48db4addcd4",
+  "0x91f79893E7B923410Ef1aEba6a67c6fab07D800C"
 );

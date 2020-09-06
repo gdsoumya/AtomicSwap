@@ -12,5 +12,5 @@ const getSwap = async (secretHash) => {
 };
 
 getSwap(
-  "0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd"
+  "0x33db7a492a6440e26bf41a034c7872214a17c5f8516cfaaeaee90f9a5cd907b5"
 ).then((res) => console.log(res));
