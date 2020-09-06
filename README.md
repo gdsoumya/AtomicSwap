@@ -19,7 +19,7 @@ cd AtomicSwap/try
 ```
 
 There are 2 directories `createSwap` and `respond2Swap` each directory has a `config.json` file which needs to be filled.
-You need 2 Tezos and 2 Ethereum Addresses with some funds in it on the testnets - `carthagenet` and `goerli`.
+You need 2 Tezos and 2 Ethereum activated Addresses with some funds in it on the testnets - `carthagenet` and `goerli`.
 
 You can use these faucets to get the test funds :
 
