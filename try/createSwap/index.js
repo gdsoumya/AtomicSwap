@@ -38,7 +38,7 @@ const waitCompletion = (web3, secret) => {
     console.log("WAITING TO COMPLETE SWAP");
     if (swp.participant != storeEth.keyStore.address) return;
     clearInterval(tid);
-    console.log("COMPLETING SWAP");
+    console.log("\nCOMPLETING SWAP");
     await redeem(web3, secret.hashedSecret, secret.secret);
   }, 180000);
 };
@@ -61,7 +61,7 @@ const Start = async () => {
     secret.hashedSecret,
     Math.trunc(Date.now() / 1000) + 7200
   );
-  console.log("SWAP Generated : \n");
+  console.log("\nSWAP Generated : ");
   const swap = await getSwapTez(secret.hashedSecret);
   console.log(JSON.stringify(swap));
 
@@ -71,7 +71,7 @@ const Start = async () => {
     console.log("CHECKING FOR SWAP RESPONSE");
     if (swp.initiator_tez == "" && swp.refundTimestamp == "0") return;
     clearInterval(tid);
-    console.log("A SWAP RESPONSE FOUND : \n", swp);
+    console.log("\nA SWAP RESPONSE FOUND : \n", swp);
     await addCounterParty(swp.initiator_tez, secret.hashedSecret);
     waitCompletion(web3, secret);
   }, 180000);

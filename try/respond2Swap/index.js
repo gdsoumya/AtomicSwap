@@ -26,7 +26,7 @@ const showUserDetails = async (web3) => {
   );
   const balanceEth = await ethBalance(web3, storeEth.keyStore.address);
   console.log(
-    "ETHEREUM ACCOUNT :",
+    "\nETHEREUM ACCOUNT :",
     storeEth.keyStore.address,
     "\nBALANCE: ",
     balanceEth / Math.pow(10, 18),
@@ -40,7 +40,7 @@ const waitCompletion = (hashedSecret) => {
     console.log("WAITING TO COMPLETE SWAP");
     if (swp.initiator_tez != "" && swp.refundTimestamp != "0") return;
     clearInterval(id);
-    console.log("COMPLETING SWAP");
+    console.log("\nCOMPLETING SWAP");
     const secret = await getRedeemedSwap(hashedSecret);
     await redeem(hashedSecret, secret);
   }, 180000);
@@ -55,9 +55,10 @@ const Start = async () => {
 
   //get conversion rate
   const rate = await getConversionRate();
-  console.log(`CURRENT RATE : 1XTZ -> ${rate}ETH`);
+  console.log(`\nCURRENT RATE : 1XTZ -> ${rate}ETH`);
   // get all swaps
   const swaps = await getSwaps();
+  console.log("\nSELECT YOUR SWAP : \n");
   swaps.forEach((swp, i) => {
     console.log(
       `${i + 1}. Hash : ${swp.hashedSecret}\nXTZ-Value: ${
@@ -83,7 +84,7 @@ const Start = async () => {
     storeTezos.keyStore.publicKeyHash,
     (req_swap.value / (rate * 1000000)).toString()
   );
-  console.log("SWAP GENERATED | HASH: ", req_swap.hashedSecret);
+  console.log("\nSWAP GENERATED | HASH: ", req_swap.hashedSecret);
 
   // watch swap response
   const tid = setInterval(async () => {
@@ -91,7 +92,7 @@ const Start = async () => {
     console.log("CHECKING FOR SWAP RESPONSE");
     if (swp.participant != storeTezos.keyStore.publicKeyHash) return;
     clearInterval(tid);
-    console.log("A SWAP RESPONSE FOUND : \n", swp);
+    console.log("\nA SWAP RESPONSE FOUND : \n", swp);
     await addCounterParty(web3, req_swap.hashedSecret, swp.initiator_eth);
     waitCompletion(req_swap.hashedSecret);
   }, 180000);
