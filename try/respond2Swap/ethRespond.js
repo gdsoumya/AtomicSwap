@@ -55,7 +55,7 @@ const Start = async () => {
 
   //get conversion rate
   const rate = await getConversionRate();
-  console.log(`\nCURRENT RATE : 1XTZ -> ${rate}ETH`);
+  console.log(`\nCURRENT RATE : 1ETH -> ${rate}XTZ`);
   // get all swaps
   const swaps = await getSwaps();
   console.log("\nSELECT YOUR SWAP : \n");
