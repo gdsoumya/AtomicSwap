@@ -21,7 +21,7 @@ const Test = async (secret, refundTime, tezAcc, amtInEther) => {
 
 //Tezos Addr to transfer the converted crypto and amount to convert in Eth
 Test(
-  "0xa881ec2b066a70d6265dabd60d1ef5f6bae725ac9e9846e43b91a48db4addcd4",
+  "0xa881ec2b066a70d6265dabd60d1ef5f6bae725ac9e9846e43b91a48db4addcd5",
   Math.trunc(Date.now() / 1000) + 3600,
   "tz1TjCVuTLE7mHRJdS8GDYhtmjTu1eAncq8e",
   "0.04"

@@ -1,3 +1,4 @@
+const invokeContract = require("../util/invokeContract");
 const {
   ConseilDataClient,
   ConseilOperator,
@@ -51,7 +52,6 @@ const parseValue = (michelsonData) => {
 };
 
 const getSwaps = async () => {
-  await init();
   const data = await ConseilDataClient.executeEntityQuery(
     conseilServer,
     "tezos",
@@ -86,4 +86,21 @@ const getSwaps = async () => {
   return swaps;
 };
 
-getSwaps().then(console.log);
+const refund = async (hashedSecret) => {
+  const res = await invokeContract(0, "refund", `${hashedSecret}`, 100000);
+  if (res.status !== "applied") {
+    console.log("FAILED - XTZ HASH : ", res.operation_group_hash);
+    console.log("STATUS : ", res.status, "\nREASON : ", res.errors);
+  } else console.log("CONFIRMED - XTZ HASH : ", res.operation_group_hash);
+};
+
+const refundAll = async () => {
+  await init();
+  const swaps = await getSwaps();
+  for (let i = 0; i < swaps.length; i++) {
+    if (Math.trunc(Date.now() / 1000) >= swaps[i].refundTimestamp)
+      await refund(swaps[i].hashedSecret);
+  }
+};
+
+refundAll();

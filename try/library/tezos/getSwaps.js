@@ -58,6 +58,12 @@ module.exports = async () => {
           set: ["15534"],
           inverse: false,
         },
+        {
+          field: "value",
+          operation: ConseilOperator.ISNULL,
+          set: [""],
+          inverse: true,
+        },
       ],
       orderBy: [{ field: "key", direction: ConseilSortDirection.DESC }],
       aggregation: [],

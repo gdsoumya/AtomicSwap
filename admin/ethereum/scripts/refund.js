@@ -22,4 +22,4 @@ const refund = async (secret) => {
   return;
 };
 
-refund("0x055e1d97b8f4a2d0e8913e6300818ed3c235f886d3b71bdfde7ed5aa05d724fd");
+refund("0xc43f27559058c3d3427dfd13106a52815822b022aad70b8fb21824e0888f8665");

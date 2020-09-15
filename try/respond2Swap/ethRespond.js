@@ -71,7 +71,7 @@ const Start = async () => {
   console.log(
     `\nSTARTING SWAP RESPONSE FOR : \nHash : ${
       req_swap.hashedSecret
-    }\nXTZ-Value: ${req_swap.value / Math.pow(10, 18)}XTZ\nETH To Pay: ${
+    }\nETH-Value: ${req_swap.value / Math.pow(10, 18)}ETH\nXTZ To Pay: ${
       (req_swap.value * rate) / Math.pow(10, 18)
     }XTZ`
   );

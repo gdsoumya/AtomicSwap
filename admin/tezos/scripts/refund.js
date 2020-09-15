@@ -2,7 +2,7 @@ const invokeContract = require("../util/invokeContract");
 const init = require("../init");
 
 const tezAccount = "tz1TjCVuTLE7mHRJdS8GDYhtmjTu1eAncq8e",
-  secret = "0x218cca049c4b124dbae88931be4c52887eb8e896cb7b380a0f0f41074d5432c2";
+  secret = "0xc43f27559058c3d3427dfd13106a52815822b022aad70b8fb21824e0888f8665";
 
 init().then(() => {
   invokeContract(0, "refund", `${secret}`, 100000)

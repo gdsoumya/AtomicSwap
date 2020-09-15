@@ -1,6 +1,6 @@
 {
   "tezos": {
-    "RPC": "https://carthagenet.smartpy.io/",
+    "RPC": "https://tezos-dev.cryptonomic-infra.tech:443",
     "contractAddr": "KT1T92mZgyZZtVqRG1XfyeqDsPbGe66tPFyV",
     "tezosNode": "https://tezos-dev.cryptonomic-infra.tech:443",
     "network": "carthagenet",

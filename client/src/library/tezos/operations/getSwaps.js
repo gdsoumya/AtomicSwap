@@ -1,20 +1,13 @@
-const {
+import {
   ConseilDataClient,
   ConseilOperator,
   ConseilSortDirection,
   TezosLanguageUtil,
   TezosMessageUtils,
-} = require("conseiljs");
-const { JSONPath } = require("jsonpath-plus");
-const init = require("../init");
+} from "conseiljs";
+import config from "../../../globalConfig.json";
+import { JSONPath } from "jsonpath-plus";
 
-const network = "carthagenet";
-
-const conseilServer = {
-  url: "https://conseil-dev.cryptonomic-infra.tech:443",
-  apiKey: "1e2ca8b9-fb0b-4d78-ab8c-d5b67cc40434",
-  network,
-};
 const parseValue = (michelsonData) => {
   const michelineData = TezosLanguageUtil.translateMichelsonToMicheline(
     michelsonData
@@ -51,11 +44,10 @@ const parseValue = (michelsonData) => {
 };
 
 const getSwaps = async () => {
-  await init();
   const data = await ConseilDataClient.executeEntityQuery(
-    conseilServer,
+    config.tezos.conseilServer,
     "tezos",
-    network,
+    config.tezos.network,
     "big_map_contents",
     {
       fields: ["key", "key_hash", "operation_group_id", "big_map_id", "value"],
@@ -78,7 +70,6 @@ const getSwaps = async () => {
       limit: 1000,
     }
   );
-  console.log(data);
   let swaps = [];
   data.forEach((e) => {
     if (e.value !== null) swaps.push(parseValue(e.value));
@@ -86,4 +77,4 @@ const getSwaps = async () => {
   return swaps;
 };
 
-getSwaps().then(console.log);
+export default getSwaps;

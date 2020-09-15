@@ -2,28 +2,29 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gdsoumya.github.io/AtomicSwap",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.54",
-    "@types/react": "^16.9.48",
-    "@types/react-dom": "^16.9.8",
-    "@types/web3": "^1.2.2",
     "conseiljs": "^5.0.4",
     "conseiljs-softsigner": "^5.0.3",
+    "ethereumjs-tx": "^2.1.2",
+    "jsonpath-plus": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "typescript": "^3.7.5",
     "web3": "^1.2.11"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }

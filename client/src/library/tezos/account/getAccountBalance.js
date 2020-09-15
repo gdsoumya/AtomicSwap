@@ -1,8 +1,9 @@
 import { TezosNodeReader } from "conseiljs";
+import config from "../../../globalConfig.json";
 
-const accountBalanceTez = async (address: string) => {
+const accountBalanceTez = async (address) => {
   const result = await TezosNodeReader.getSpendableBalanceForAccount(
-    "https://carthagenet.smartpy.io/",
+    config.tezos.RPC,
     address
   );
   return result;
