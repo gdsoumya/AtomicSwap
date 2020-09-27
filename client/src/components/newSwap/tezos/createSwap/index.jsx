@@ -3,7 +3,7 @@ import getConversionRate from "../../../../library/common/getConversionRate";
 import { useHistory } from "react-router-dom";
 import useStyles from "../../style";
 
-const CreateSwap = ({ genSwap, loader }) => {
+const CreateSwap = ({ className, genSwap, loader, balance }) => {
   const [rate, setRate] = useState(0);
   const [input, setInput] = useState(0);
   const history = useHistory();
@@ -35,7 +35,7 @@ const CreateSwap = ({ genSwap, loader }) => {
     }
   };
   return (
-    <>
+    <div className={className}>
       <form onSubmit={generateSwap}>
         <input
           type="number"
@@ -53,7 +53,7 @@ const CreateSwap = ({ genSwap, loader }) => {
           Expected ETH Value : {input / rate} ETH
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

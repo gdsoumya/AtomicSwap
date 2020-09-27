@@ -11,13 +11,13 @@ const Swap = () => {
         className={classes.selectButton}
         onClick={() => history.push("/create/xtz")}
       >
-        XTZ-&gt;ETH
+        XTZ &#8614; ETH
       </button>
       <button
         className={classes.selectButton}
         onClick={() => history.push("/create/eth")}
       >
-        ETH-&gt;XTZ
+        ETH &#8614; XTZ
       </button>
     </div>
   );

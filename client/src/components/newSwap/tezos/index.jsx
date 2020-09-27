@@ -1,8 +1,8 @@
 import React from "react";
 import GetSwap from "./getSwaps";
 
-const Tezos = ({ genSwap, ethStore }) => {
-  return <GetSwap genSwap={genSwap} ethStore={ethStore} />;
+const Tezos = (props) => {
+  return <GetSwap {...props} />;
 };
 
 export default Tezos;

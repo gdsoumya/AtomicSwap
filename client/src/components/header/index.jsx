@@ -4,8 +4,9 @@ import accountBalanceEth from "../../library/ethereum/account/getAccountBalance"
 import accountBalanceTez from "../../library/tezos/account/getAccountBalance";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
-const Header = ({ ethStore, tezStore }) => {
-  const [balance, setBalance] = useState({ eth: "0 ETH", tez: "0 XTZ" });
+
+const Header = ({ ethStore, tezStore, balUpdate }) => {
+  const [balance, setBalance] = useState({ eth: 0, tez: 0 });
   const classes = useStyles();
   const history = useHistory();
   const updateBalance = async () => {
@@ -13,35 +14,57 @@ const Header = ({ ethStore, tezStore }) => {
     let tez = await accountBalanceTez(tezStore.keyStore.publicKeyHash);
     eth = eth / Math.pow(10, 18);
     tez = tez / 1000000;
-    setBalance({ eth: `${eth} ETH`, tez: `${tez} XTZ` });
+    balUpdate({ eth, tez });
+    setBalance({ eth, tez });
   };
 
   useEffect(() => {
     updateBalance();
     const timer = setInterval(async () => {
       await updateBalance();
-    }, 120000);
+    }, 60000);
     return () => {
       clearInterval(timer);
     };
   }, [ethStore.keyStore.address, tezStore.keyStore.publicKeyHash]);
 
+  const shorten = (first, last, str) => {
+    return str.substring(0, first) + "..." + str.substring(str.length - last);
+  };
+
+  const truncate = (number, digits) => {
+    return Math.trunc(number * Math.pow(10, digits)) / Math.pow(10, digits);
+  };
+
   return (
-    <>
-      <div className={classes.header}>
-        <div className={classes.account}>
-          <p>Ethereum Addr.: {ethStore.keyStore.address}</p>
-          <p>Balance : {balance.eth}</p>
-        </div>
-        <div className={classes.account}>
-          <p>Tezos Addr.: {tezStore.keyStore.publicKeyHash}</p>
-          <p>Balance : {balance.tez}</p>
-        </div>
+    <div className={classes.header}>
+      <div className={classes.account}>
+        <p>Ethereum Addr.: {shorten(5, 5, ethStore.keyStore.address)}</p>
+        <p>Balance : {truncate(balance.eth, 4)} ETH</p>
       </div>
-      <button className={classes.button} onClick={() => history.push("/")}>
-        Home
-      </button>
-    </>
+      <div className={classes.nav}>
+        <h1 className={classes.title}>Atomic Swap</h1>
+        <button className={classes.button} onClick={() => history.push("/")}>
+          Home
+        </button>
+        <button
+          className={classes.button}
+          onClick={() => history.push("/about")}
+        >
+          About
+        </button>
+        <button
+          className={classes.button}
+          onClick={() => history.push("/create")}
+        >
+          New Swap
+        </button>
+      </div>
+      <div className={classes.account}>
+        <p>Tezos Addr.: {shorten(5, 5, tezStore.keyStore.publicKeyHash)}</p>
+        <p>Balance : {truncate(balance.tez, 4)} XTZ</p>
+      </div>
+    </div>
   );
 };
 

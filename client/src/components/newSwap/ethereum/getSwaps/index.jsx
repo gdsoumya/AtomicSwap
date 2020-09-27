@@ -6,7 +6,7 @@ import useStyles from "../../style";
 import Loader from "../../../loader";
 import CreateSwap from "../createSwap";
 
-const GetSwap = ({ genSwap, selfAcc }) => {
+const GetSwap = ({ genSwap, selfAcc, balance }) => {
   const [swaps, setSwaps] = useState([]);
   const [loader, setLoader] = useState(true);
   const [fullLoader, setFullLoader] = useState(false);
@@ -76,12 +76,23 @@ const GetSwap = ({ genSwap, selfAcc }) => {
   if (swaps.length > 0) data = swaps.map((swp) => SwapItem(swp));
   if (fullLoader) return <Loader message="..Creating Your Swap.." />;
   return (
-    <div>
-      <CreateSwap genSwap={genSwap} loader={setFullLoader} />
-      <h3>Or</h3>
-      <h3 className={classes.msg}>Select From Available SWAPS</h3>
-      {loader && <Loader message="..Loading Swaps.." />}
-      {!loader && data}
+    <div className={classes.swapScreen}>
+      <CreateSwap
+        className={classes.newSwap}
+        genSwap={genSwap}
+        balance={balance}
+        loader={setFullLoader}
+      />
+      <div className={classes.or}>
+        <p>Or</p>
+      </div>
+      <div className={classes.swapList}>
+        <h3 className={classes.msg}>Select From Available SWAPS</h3>
+        <div className={classes.swaps}>
+          {loader && <Loader message="..Loading Swaps.." />}
+          {!loader && data}
+        </div>
+      </div>
     </div>
   );
 };

@@ -13,11 +13,13 @@ import requestTezos from "./library/common/request-tezos";
 import respondTezos from "./library/common/respond-tezos";
 import requestEth from "./library/common/request-eth";
 import respondEth from "./library/common/respond-eth";
+import Loader from "./components/loader";
 
 const App = () => {
   const [ethStore, ethSetup] = useState(undefined);
   const [tezStore, tezSetup] = useState(undefined);
   const [swaps, updateSwaps] = useState(undefined);
+  const [balance, balUpdate] = useState(undefined);
   const [, updateState] = React.useState();
 
   const swapRef = useRef();
@@ -101,24 +103,32 @@ const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
-        <Header ethStore={ethStore} tezStore={tezStore} />
-        <Switch>
-          <Route exact path="/">
-            <Home swaps={swaps} />
-          </Route>
-          <Route exact path="/create/eth">
-            <Ethereum
-              genSwap={genSwap}
-              selfAcc={tezStore.keyStore.publicKeyHash}
-            />
-          </Route>
-          <Route exact path="/create/xtz">
-            <Tezos genSwap={genSwap} ethStore={ethStore} />
-          </Route>
-          <Route exact path="/create">
-            <Swap />
-          </Route>
-        </Switch>
+        <Header ethStore={ethStore} tezStore={tezStore} balUpdate={balUpdate} />
+        {balance === undefined && <Loader message="Loading Account" />}
+        {balance !== undefined && (
+          <Switch>
+            <Route exact path="/">
+              <Home swaps={swaps} />
+            </Route>
+            <Route exact path="/create/eth">
+              <Ethereum
+                genSwap={genSwap}
+                selfAcc={tezStore.keyStore.publicKeyHash}
+                balance={balance.eth}
+              />
+            </Route>
+            <Route exact path="/create/xtz">
+              <Tezos
+                genSwap={genSwap}
+                ethStore={ethStore}
+                balance={balance.tez}
+              />
+            </Route>
+            <Route exact path="/create">
+              <Swap />
+            </Route>
+          </Switch>
+        )}
       </div>
     </Router>
   );

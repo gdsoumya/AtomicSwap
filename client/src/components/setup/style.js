@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     color: "white",
     width: "fit-content",
-    border: "0.1vw black solid",
     margin: "1vw auto",
     padding: "0.5vw",
     fontWeight: "bold",
@@ -25,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
     cursor: "pointer",
     fontSize: "1.2vw",
+    outline: "none",
+    border: "0.2vw black solid",
+    "&:hover": {
+      backgroundColor: "white",
+      color: "black",
+    },
   },
   intro: {
     margin: "5vw",

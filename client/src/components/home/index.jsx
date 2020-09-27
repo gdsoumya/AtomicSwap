@@ -22,17 +22,21 @@ const Home = ({ swaps }) => {
       </div>
     );
   };
-  let data = <p>No Swaps Created Yet!</p>;
-  if (swaps !== undefined)
-    data = Object.keys(swaps).map((key) => SwapItem(swaps[key]));
-  return (
-    <div>
+  let data = (
+    <>
+      <p>No Swaps Created Yet!</p>
       <button
         className={classes.button}
         onClick={() => history.push("/create")}
       >
         Start New Swap
       </button>
+    </>
+  );
+  if (swaps !== undefined)
+    data = Object.keys(swaps).map((key) => SwapItem(swaps[key]));
+  return (
+    <div>
       <div className={classes.swaps}>
         <h3>Your Swaps</h3>
         {data}

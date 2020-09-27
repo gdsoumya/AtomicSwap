@@ -5,7 +5,7 @@ import useStyles from "./style";
 const Loader = ({ message }) => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.container}>
       <CircularProgress className={classes.loader} size={60} />
       <p className={classes.msg}>{message}</p>
     </div>
