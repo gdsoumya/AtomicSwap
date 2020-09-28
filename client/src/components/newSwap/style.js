@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   expectedValue: {
     display: "block",
-    margin: "3vw",
+    marginTop: "2vw",
   },
   create: {
     backgroundColor: "black",
@@ -44,19 +44,24 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   valueInput: {
-    marginRight: "1vw",
-    padding: "0.2vw",
+    padding: "0.7vw",
+    margin: "1vw auto",
+    display: "block",
+    width: "17vw",
+    height: "1.4vw",
+    fontSize: "1vw",
   },
   swap: {
     color: "white",
     border: "0.2vw black solid",
     cursor: "pointer",
     margin: "0 1.4vw 1.4vw 1.4vw",
-    padding: "0.5vw 2vw",
-    lineHeight: "1.4vw",
+    outline: "none",
+    padding: "0.7vw",
+    lineHeight: "1vw",
     borderRadius: "1vw",
     backgroundColor: "black",
-    outline: "none",
+    fontSize: "1.5vw",
     "&:hover": {
       backgroundColor: "white",
       color: "black",
@@ -98,6 +103,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+  },
+  createWrap: {
+    width: "28vw",
+    padding: "2vw",
+    border: "0.3vw solid black",
+    borderRadius: "1vw",
   },
 }));
 

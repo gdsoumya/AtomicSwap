@@ -60,7 +60,7 @@ const invokeContract = (
       .then(resolve)
       .catch((err) => {
         console.log(err);
-        reject(err);
+        resolve({ status: "error" });
       });
   });
 };

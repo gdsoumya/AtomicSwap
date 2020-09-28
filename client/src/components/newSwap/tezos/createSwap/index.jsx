@@ -36,19 +36,19 @@ const CreateSwap = ({ className, genSwap, loader, balance }) => {
   };
   return (
     <div className={className}>
-      <form onSubmit={generateSwap}>
-        <input
-          type="number"
-          placeholder="Amount in XTZ"
-          name="tez"
-          step=".0001"
-          min="0"
-          onInput={(e) => setInput(e.target.value)}
-          className={classes.valueInput}
-        />
-        <input className={classes.create} type="submit" value="CREATE" />
-      </form>
-      <div>
+      <div className={classes.createWrap}>
+        <form onSubmit={generateSwap}>
+          <input
+            type="number"
+            placeholder="Amount in XTZ"
+            name="tez"
+            step=".0001"
+            min="0"
+            onInput={(e) => setInput(e.target.value)}
+            className={classes.valueInput}
+          />
+          <input className={classes.create} type="submit" value="CREATE" />
+        </form>
         <p className={classes.expectedValue}>
           Expected ETH Value : {input / rate} ETH
         </p>

@@ -4,6 +4,7 @@ import accountBalanceEth from "../../library/ethereum/account/getAccountBalance"
 import accountBalanceTez from "../../library/tezos/account/getAccountBalance";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
+import { shorten, truncate } from "../../util";
 
 const Header = ({ ethStore, tezStore, balUpdate }) => {
   const [balance, setBalance] = useState({ eth: 0, tez: 0 });
@@ -28,13 +29,13 @@ const Header = ({ ethStore, tezStore, balUpdate }) => {
     };
   }, [ethStore.keyStore.address, tezStore.keyStore.publicKeyHash]);
 
-  const shorten = (first, last, str) => {
-    return str.substring(0, first) + "..." + str.substring(str.length - last);
-  };
+  // const shorten = (first, last, str) => {
+  //   return str.substring(0, first) + "..." + str.substring(str.length - last);
+  // };
 
-  const truncate = (number, digits) => {
-    return Math.trunc(number * Math.pow(10, digits)) / Math.pow(10, digits);
-  };
+  // const truncate = (number, digits) => {
+  //   return Math.trunc(number * Math.pow(10, digits)) / Math.pow(10, digits);
+  // };
 
   return (
     <div className={classes.header}>

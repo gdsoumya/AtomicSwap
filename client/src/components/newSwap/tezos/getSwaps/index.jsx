@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import useStyles from "../../style";
 import CreateSwap from "../createSwap";
 import Loader from "../../../loader";
+import { shorten } from "../../../../util";
 
 const GetSwap = ({ genSwap, ethStore, balance }) => {
   const [swaps, setSwaps] = useState([]);
@@ -41,7 +42,7 @@ const GetSwap = ({ genSwap, ethStore, balance }) => {
         key={data.hashedSecret}
         className={classes.swap}
       >
-        <p>Hash : {data.hashedSecret}</p>
+        <p>Hash : {shorten(15, 15, data.hashedSecret)}</p>
         <p>ETH Value : {data.dispValue}</p>
         <p>XTZ to Pay : {data.pay}</p>
       </div>
