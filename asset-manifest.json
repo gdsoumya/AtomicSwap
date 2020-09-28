@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/AtomicSwap/static/css/main.e1f1cdab.chunk.css",
-    "main.js": "/AtomicSwap/static/js/main.be62b293.chunk.js",
-    "main.js.map": "/AtomicSwap/static/js/main.be62b293.chunk.js.map",
+    "main.js": "/AtomicSwap/static/js/main.886be1e6.chunk.js",
+    "main.js.map": "/AtomicSwap/static/js/main.886be1e6.chunk.js.map",
     "runtime-main.js": "/AtomicSwap/static/js/runtime-main.d8fd0ecf.js",
     "runtime-main.js.map": "/AtomicSwap/static/js/runtime-main.d8fd0ecf.js.map",
     "static/js/2.6e35e59a.chunk.js": "/AtomicSwap/static/js/2.6e35e59a.chunk.js",
     "static/js/2.6e35e59a.chunk.js.map": "/AtomicSwap/static/js/2.6e35e59a.chunk.js.map",
     "index.html": "/AtomicSwap/index.html",
-    "precache-manifest.5060ec9c9aa890e990588e0e7d5750f5.js": "/AtomicSwap/precache-manifest.5060ec9c9aa890e990588e0e7d5750f5.js",
+    "precache-manifest.0250da1522251e76c0e972636a7fd8db.js": "/AtomicSwap/precache-manifest.0250da1522251e76c0e972636a7fd8db.js",
     "service-worker.js": "/AtomicSwap/service-worker.js",
     "static/css/main.e1f1cdab.chunk.css.map": "/AtomicSwap/static/css/main.e1f1cdab.chunk.css.map",
     "static/js/2.6e35e59a.chunk.js.LICENSE.txt": "/AtomicSwap/static/js/2.6e35e59a.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d8fd0ecf.js",
     "static/js/2.6e35e59a.chunk.js",
     "static/css/main.e1f1cdab.chunk.css",
-    "static/js/main.be62b293.chunk.js"
+    "static/js/main.886be1e6.chunk.js"
   ]
 }
