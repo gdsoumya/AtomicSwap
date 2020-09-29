@@ -14,6 +14,7 @@ import respondTezos from "./library/common/respond-tezos";
 import requestEth from "./library/common/request-eth";
 import respondEth from "./library/common/respond-eth";
 import Loader from "./components/loader";
+import About from "./components/about";
 
 const App = () => {
   const [ethStore, ethSetup] = useState(undefined);
@@ -126,6 +127,9 @@ const App = () => {
             </Route>
             <Route exact path="/create">
               <Swap />
+            </Route>
+            <Route exact path="/about">
+              <About />
             </Route>
           </Switch>
         )}

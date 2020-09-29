@@ -29,14 +29,6 @@ const Header = ({ ethStore, tezStore, balUpdate }) => {
     };
   }, [ethStore.keyStore.address, tezStore.keyStore.publicKeyHash]);
 
-  // const shorten = (first, last, str) => {
-  //   return str.substring(0, first) + "..." + str.substring(str.length - last);
-  // };
-
-  // const truncate = (number, digits) => {
-  //   return Math.trunc(number * Math.pow(10, digits)) / Math.pow(10, digits);
-  // };
-
   return (
     <div className={classes.header}>
       <div className={classes.account}>
@@ -44,7 +36,7 @@ const Header = ({ ethStore, tezStore, balUpdate }) => {
         <p>Balance : {truncate(balance.eth, 4)} ETH</p>
       </div>
       <div className={classes.nav}>
-        <h1 className={classes.title}>Atomic Swap</h1>
+        <h1 className={classes.title}>TrueSwap</h1>
         <button className={classes.button} onClick={() => history.push("/")}>
           Home
         </button>

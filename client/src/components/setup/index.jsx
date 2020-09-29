@@ -10,7 +10,7 @@ const Setup = ({ init }) => {
   return (
     <div className={classes.container}>
       <div className={classes.intro}>
-        <h1 className={classes.title}>Atomic Swap</h1>
+        <h1 className={classes.title}>TrueSwap</h1>
         <p>Cross-Chain Atomic Swaps for Ethereum and Tezos</p>
         <p>
           *Do not refresh or close the app during a running swap, your swaps
