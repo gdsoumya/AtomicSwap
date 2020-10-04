@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/AtomicSwap/static/css/main.e1f1cdab.chunk.css",
-    "main.js": "/AtomicSwap/static/js/main.6164e877.chunk.js",
-    "main.js.map": "/AtomicSwap/static/js/main.6164e877.chunk.js.map",
+    "main.js": "/AtomicSwap/static/js/main.134bf16e.chunk.js",
+    "main.js.map": "/AtomicSwap/static/js/main.134bf16e.chunk.js.map",
     "runtime-main.js": "/AtomicSwap/static/js/runtime-main.d8fd0ecf.js",
     "runtime-main.js.map": "/AtomicSwap/static/js/runtime-main.d8fd0ecf.js.map",
-    "static/js/2.2ff58f3f.chunk.js": "/AtomicSwap/static/js/2.2ff58f3f.chunk.js",
-    "static/js/2.2ff58f3f.chunk.js.map": "/AtomicSwap/static/js/2.2ff58f3f.chunk.js.map",
+    "static/js/2.85d9988d.chunk.js": "/AtomicSwap/static/js/2.85d9988d.chunk.js",
+    "static/js/2.85d9988d.chunk.js.map": "/AtomicSwap/static/js/2.85d9988d.chunk.js.map",
     "index.html": "/AtomicSwap/index.html",
-    "precache-manifest.4b05235de068f390f63dd5dddf3b3fa3.js": "/AtomicSwap/precache-manifest.4b05235de068f390f63dd5dddf3b3fa3.js",
+    "precache-manifest.d2eb5b3dddfcf6a26547a8fcc5b09535.js": "/AtomicSwap/precache-manifest.d2eb5b3dddfcf6a26547a8fcc5b09535.js",
     "service-worker.js": "/AtomicSwap/service-worker.js",
     "static/css/main.e1f1cdab.chunk.css.map": "/AtomicSwap/static/css/main.e1f1cdab.chunk.css.map",
-    "static/js/2.2ff58f3f.chunk.js.LICENSE.txt": "/AtomicSwap/static/js/2.2ff58f3f.chunk.js.LICENSE.txt"
+    "static/js/2.85d9988d.chunk.js.LICENSE.txt": "/AtomicSwap/static/js/2.85d9988d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d8fd0ecf.js",
-    "static/js/2.2ff58f3f.chunk.js",
+    "static/js/2.85d9988d.chunk.js",
     "static/css/main.e1f1cdab.chunk.css",
-    "static/js/main.6164e877.chunk.js"
+    "static/js/main.134bf16e.chunk.js"
   ]
 }
