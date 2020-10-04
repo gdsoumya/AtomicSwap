@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2vw",
     backgroundColor: "black",
   },
+  noSwap: {
+    fontSize: "1.2vw",
+  },
 }));
 
 export default useStyles;

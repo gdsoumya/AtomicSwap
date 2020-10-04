@@ -23,15 +23,22 @@ const Home = ({ swaps }) => {
     );
   };
   let data = (
-    <>
-      <p>No Swaps Created Yet!</p>
+    <div className={classes.noSwap}>
+      <p>
+        No Swaps Created Yet! Learn more about <b>TrueSwap</b> and how to create
+        your own Atomic Swap
+      </p>
+      <button className={classes.button} onClick={() => history.push("/about")}>
+        Learn More
+      </button>
+      <p>or create a Swap now!</p>
       <button
         className={classes.button}
         onClick={() => history.push("/create")}
       >
         Start New Swap
       </button>
-    </>
+    </div>
   );
   if (swaps !== undefined)
     data = Object.keys(swaps).map((key) => SwapItem(swaps[key]));

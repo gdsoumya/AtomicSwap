@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "70%",
-    margin: "0 auto",
+    margin: "-2vw auto",
     fontSize: "1.4vw",
     lineHeight: "2.8vw",
     marginBottom: "2.8vw",

@@ -1,20 +1,20 @@
 import React, { useRef, useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Setup from "./components/setup";
-import setEthAccount from "./library/ethereum/account/setAccount";
-import setTezAccount from "./library/tezos/account/setAccount";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import About from "./components/about";
 import Header from "./components/header";
 import Home from "./components/home";
-import Ethereum from "./components/newSwap/ethereum/index.jsx";
-import Swap from "./components/newSwap";
-import Tezos from "./components/newSwap/tezos";
-import requestTezos from "./library/common/request-tezos";
-import respondTezos from "./library/common/respond-tezos";
-import requestEth from "./library/common/request-eth";
-import respondEth from "./library/common/respond-eth";
 import Loader from "./components/loader";
-import About from "./components/about";
+import Swap from "./components/newSwap";
+import Ethereum from "./components/newSwap/ethereum/index.jsx";
+import Tezos from "./components/newSwap/tezos";
+import Setup from "./components/setup";
+import requestEth from "./library/common/request-eth";
+import requestTezos from "./library/common/request-tezos";
+import respondEth from "./library/common/respond-eth";
+import respondTezos from "./library/common/respond-tezos";
+import setEthAccount from "./library/ethereum/account/setAccount";
+import setTezAccount from "./library/tezos/account/setAccount";
 
 const App = () => {
   const [ethStore, ethSetup] = useState(undefined);

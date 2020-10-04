@@ -76,13 +76,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     height: "100%",
   },
-  swapList: {
-    width: "45%",
-    height: "100%",
-  },
   swaps: {
-    display: "block",
-    height: "60vh",
+    flexGrow: 1,
     overflowY: "auto",
   },
   or: {
@@ -98,17 +93,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   newSwap: {
-    width: "45%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    flexGrow: 1,
   },
   createWrap: {
     width: "28vw",
     padding: "2vw",
     border: "0.3vw solid black",
     borderRadius: "1vw",
+  },
+  container: {
+    width: "45%",
+    maxHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
