@@ -54,7 +54,7 @@ const invokeContract = (
           config.tezos.conseilServer,
           config.tezos.network,
           groupid,
-          2
+          1
         );
       })
       .then(resolve)

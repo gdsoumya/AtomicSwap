@@ -8,8 +8,8 @@ const Home = ({ swaps }) => {
   const SwapItem = (data) => {
     const exp = new Date(data.refundTime * 1000);
     const state = {
-      1: "Running[1]",
-      2: "Running[2]",
+      1: "Swap Initiated",
+      2: "Swap Response Found",
       3: "Completed",
       4: "Refunded",
     };

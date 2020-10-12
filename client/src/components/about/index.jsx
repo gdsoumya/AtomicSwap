@@ -45,8 +45,8 @@ const About = () => {
         The swap can can be in the following states :<br />
       </p>
       <p className={classes.list}>
-        1. Running[1] : Swap Request initiated, waiting for response Swaps.
-        <br /> 2. Running[2] : Swap response has been found and can proceed to
+        1. Swap Initiated : Swap Request initiated, waiting for response Swaps.
+        <br /> 2. Swap Response Found : Swap response has been found and can proceed to
         completion. <br />
         3. Completed : The Swap was successfully completed. <br />
         4. Refunded : There was no Response for the Swap, it expired and the
