@@ -11,7 +11,7 @@ const Setup = ({ init }) => {
     <div className={classes.container}>
       <div className={classes.intro}>
         <h1 className={classes.title}>TrueSwap</h1>
-        <p>Cross-Chain Atomic Swaps for Ethereum and Tezos</p>
+        <p>Truly Decentralized Cross-Chain Atomic Swaps for Ethereum and Tezos</p>
         <p>
           *Do not refresh or close the app during a running swap, your swaps
           will be lost
