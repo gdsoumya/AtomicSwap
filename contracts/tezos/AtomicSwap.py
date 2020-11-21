@@ -106,7 +106,7 @@ def test():
 
     # no operations work without contract being active
     scenario += c1.initiateWait(_hashedSecret=hashSecret, initiator_eth=init_eth, _refundTimestamp=sp.timestamp(
-        159682500)).run(sender=alice, amount=sp.tez(2), now=159682400, valid=False)
+        159682500)).run(sender=alice, amount=sp.tez(2), now=sp.timestamp(159682400), valid=False)
 
     # activate only by admin
     scenario += c1.toggleContractState(
@@ -115,14 +115,14 @@ def test():
 
     # initiate new swap
     scenario += c1.initiateWait(_hashedSecret=hashSecret, initiator_eth=init_eth, _refundTimestamp=sp.timestamp(
-        159682500)).run(sender=alice, amount=sp.tez(2), now=159682400)
+        159682500)).run(sender=alice, amount=sp.tez(2), now=sp.timestamp(159682400))
 
     # balance check
     scenario.verify(c1.balance == sp.tez(2))
 
     # cannot redeem before it is activated & initiated
     scenario += c1.redeem(_hashedSecret=hashSecret, _secret=sp.bytes(
-        "0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=159682450, valid=False)
+        "0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=sp.timestamp(159682450), valid=False)
 
     # succesful add participant only by initiator
     scenario += c1.addCounterParty(_hashedSecret=hashSecret,
@@ -134,43 +134,43 @@ def test():
 
     # cannot be redeemed with wrong secret
     scenario += c1.redeem(_hashedSecret=hashSecret, _secret=sp.bytes(
-        "0x12345678aa")).run(sender=bob, now=159682450, valid=False)
+        "0x12345678aa")).run(sender=bob, now=sp.timestamp(159682450), valid=False)
 
     # cannot be redeemed after refundtime has come
     scenario += c1.redeem(_hashedSecret=hashSecret, _secret=sp.bytes(
-        "0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=159682550, valid=False)
+        "0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=sp.timestamp(159682550), valid=False)
 
     # new swap with the same hash cannot be added unless the previous one is redeemed/refunded
     scenario += c1.initiateWait(_hashedSecret=hashSecret, initiator_eth=init_eth, _refundTimestamp=sp.timestamp(
-        159682500)).run(sender=alice, amount=sp.tez(2), now=159682400, valid=False)
+        159682500)).run(sender=alice, amount=sp.tez(2), now=sp.timestamp(159682400), valid=False)
 
     # succesful redeem can be initiated by anyone but funds transfered to participant
     scenario += c1.redeem(_hashedSecret=hashSecret,
-                          _secret=sp.bytes("0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=159682450)
+                          _secret=sp.bytes("0x68656c6c6f666473667364666c64736a666c73646a6664736a6673646a6b666a")).run(sender=bob, now=sp.timestamp(159682450))
 
     # balance check
     scenario.verify(c1.balance == sp.tez(0))
 
     # succesful swap creation with same hash after redeem
     scenario += c1.initiateWait(_hashedSecret=hashSecret, initiator_eth=init_eth, _refundTimestamp=sp.timestamp(
-        159682500)).run(sender=alice, amount=sp.tez(2), now=159682400)
+        159682500)).run(sender=alice, amount=sp.tez(2), now=sp.timestamp(159682400))
 
     # balance check
     scenario.verify(c1.balance == sp.tez(2))
 
     # cannot be refunded before the refundtime
     scenario += c1.refund(_hashedSecret=hashSecret).run(sender=bob,
-                                                        now=159682450, valid=False)
+                                                        now=sp.timestamp(159682450), valid=False)
     scenario += c1.refund(_hashedSecret=hashSecret).run(sender=alice,
-                                                        now=159682450, valid=False)
+                                                        now=sp.timestamp(159682450), valid=False)
 
     # can be refunded in any initated or waiting state if refund time has come, can be done by anyone but funds transfered only to initiator
     scenario += c1.refund(_hashedSecret=hashSecret).run(sender=bob,
-                                                        now=159682550)
+                                                        now=sp.timestamp(159682550))
 
     # cannot be refunded again once it has been refunded
     scenario += c1.refund(_hashedSecret=hashSecret).run(sender=alice,
-                                                        now=159682550, valid=False)
+                                                        now=sp.timestamp(159682550), valid=False)
 
     # balance check
     scenario.verify(c1.balance == sp.tez(0))

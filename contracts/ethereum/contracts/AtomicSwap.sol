@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: APACHE
 pragma experimental ABIEncoderV2;
-pragma solidity ^0.7.0;
+pragma solidity ^0.6.0;
 
 // File: openzeppelin-contracts/contracts/math/SafeMath.sol
 library SafeMath {
@@ -20,7 +20,7 @@ library SafeMath {
 contract ReentrancyGuard {
     bool private _notEntered;
 
-    constructor() {
+    constructor() public {
         _notEntered = true;
     }
 
@@ -36,7 +36,7 @@ contract AtomicSwap is ReentrancyGuard {
     using SafeMath for uint256;
 
     enum State {Empty, Waiting, Initiated}
-    
+
     struct Swap {
         bytes32 prevHash;
         bytes32 nextHash;
@@ -48,7 +48,7 @@ contract AtomicSwap is ReentrancyGuard {
         State state;
         string initiator_tez;
     }
-    
+
     // first swap in the swap list
     bytes32 public head;
     // count of swaps
@@ -60,17 +60,14 @@ contract AtomicSwap is ReentrancyGuard {
 
     // swaps
     mapping(bytes32 => Swap) public swaps;
-    
-    event Redeemed(
-        bytes32 indexed _hashedSecret,
-        bytes32 _secret
-    );
-    
-    constructor(){
-        head=bytes32(0);
-        count=0;
-        active=false;
-        admin=msg.sender;
+
+    event Redeemed(bytes32 indexed _hashedSecret, bytes32 _secret);
+
+    constructor() public {
+        head = bytes32(0);
+        count = 0;
+        active = false;
+        admin = msg.sender;
     }
 
     modifier onlyByInitiator(bytes32 _hashedSecret) {
@@ -82,10 +79,7 @@ contract AtomicSwap is ReentrancyGuard {
     }
 
     modifier onlyByAdmin() {
-        require(
-            msg.sender == admin,
-            "sender is not the admin"
-        );
+        require(msg.sender == admin, "sender is not the admin");
         _;
     }
 
@@ -107,13 +101,9 @@ contract AtomicSwap is ReentrancyGuard {
     }
 
     modifier checkState(bytes32 _hashedSecret, State state) {
-        require(
-            swaps[_hashedSecret].state == state,
-            "state mismatch"
-        );
+        require(swaps[_hashedSecret].state == state, "state mismatch");
         _;
     }
-
 
     modifier isRedeemable(bytes32 _hashedSecret, bytes32 _secret) {
         require(
@@ -130,7 +120,8 @@ contract AtomicSwap is ReentrancyGuard {
 
     modifier isRefundable(bytes32 _hashedSecret) {
         require(
-            swaps[_hashedSecret].state == State.Waiting || swaps[_hashedSecret].state == State.Initiated ,
+            swaps[_hashedSecret].state == State.Waiting ||
+                swaps[_hashedSecret].state == State.Initiated,
             "state mismatch"
         );
         require(
@@ -139,14 +130,14 @@ contract AtomicSwap is ReentrancyGuard {
         );
         _;
     }
-    
-    modifier contractIsActive(){
-        require(active==true, "contract is deactivated");
+
+    modifier contractIsActive() {
+        require(active == true, "contract is deactivated");
         _;
     }
 
-    function toggleContractState(bool _active) public onlyByAdmin{
-        active=_active;
+    function toggleContractState(bool _active) public onlyByAdmin {
+        active = _active;
     }
 
     function initiateWait(
@@ -169,20 +160,21 @@ contract AtomicSwap is ReentrancyGuard {
         swaps[_hashedSecret].state = State.Waiting;
         swaps[_hashedSecret].prevHash = bytes32(0);
         swaps[_hashedSecret].nextHash = bytes32(0);
-        
-        
-        if(head==bytes32(0)){
-            head=_hashedSecret;
-        }
-        else{
+
+        if (head == bytes32(0)) {
+            head = _hashedSecret;
+        } else {
             swaps[_hashedSecret].nextHash = head;
-            swaps[head].prevHash=_hashedSecret;
-            head=_hashedSecret;
+            swaps[head].prevHash = _hashedSecret;
+            head = _hashedSecret;
         }
-        count+=1;
+        count += 1;
     }
-    
-    function addCounterParty(bytes32 _hashedSecret,address payable _participant)
+
+    function addCounterParty(
+        bytes32 _hashedSecret,
+        address payable _participant
+    )
         public
         contractIsActive
         checkState(_hashedSecret, State.Waiting)
@@ -190,7 +182,6 @@ contract AtomicSwap is ReentrancyGuard {
     {
         swaps[_hashedSecret].participant = _participant;
         swaps[_hashedSecret].state = State.Initiated;
-           
     }
 
     function redeem(bytes32 _hashedSecret, bytes32 _secret)
@@ -200,64 +191,67 @@ contract AtomicSwap is ReentrancyGuard {
         isRedeemable(_hashedSecret, _secret)
     {
         swaps[_hashedSecret].participant.transfer(swaps[_hashedSecret].value);
-        
-        if(swaps[_hashedSecret].prevHash == bytes32(0) && swaps[_hashedSecret].nextHash == bytes32(0)){
-            head=bytes32(0);
-        }else if(swaps[_hashedSecret].prevHash == bytes32(0)){
-            head=swaps[_hashedSecret].nextHash;
-            swaps[head].prevHash=bytes32(0);
-        }else if(swaps[_hashedSecret].nextHash == bytes32(0)){
-            swaps[swaps[_hashedSecret].prevHash].nextHash=bytes32(0);
-        }else{
-             swaps[swaps[_hashedSecret].prevHash].nextHash=swaps[_hashedSecret].nextHash;
-             swaps[swaps[_hashedSecret].nextHash].prevHash=swaps[_hashedSecret].prevHash;
+
+        if (
+            swaps[_hashedSecret].prevHash == bytes32(0) &&
+            swaps[_hashedSecret].nextHash == bytes32(0)
+        ) {
+            head = bytes32(0);
+        } else if (swaps[_hashedSecret].prevHash == bytes32(0)) {
+            head = swaps[_hashedSecret].nextHash;
+            swaps[head].prevHash = bytes32(0);
+        } else if (swaps[_hashedSecret].nextHash == bytes32(0)) {
+            swaps[swaps[_hashedSecret].prevHash].nextHash = bytes32(0);
+        } else {
+            swaps[swaps[_hashedSecret].prevHash].nextHash = swaps[_hashedSecret]
+                .nextHash;
+            swaps[swaps[_hashedSecret].nextHash].prevHash = swaps[_hashedSecret]
+                .prevHash;
         }
 
         delete swaps[_hashedSecret];
-        count-=1;
-        emit Redeemed(
-            _hashedSecret,
-            _secret
-        );
+        count -= 1;
+        emit Redeemed(_hashedSecret, _secret);
     }
 
-    function refund(bytes32 _hashedSecret)
-        public
-        isRefundable(_hashedSecret)
-    {
+    function refund(bytes32 _hashedSecret) public isRefundable(_hashedSecret) {
         swaps[_hashedSecret].initiator.transfer(swaps[_hashedSecret].value);
-    
-         if(swaps[_hashedSecret].prevHash == bytes32(0) && swaps[_hashedSecret].nextHash == bytes32(0)){
-            head=bytes32(0);
-        }else if(swaps[_hashedSecret].prevHash == bytes32(0)){
-            head=swaps[_hashedSecret].nextHash;
-            swaps[head].prevHash=bytes32(0);
-        }else if(swaps[_hashedSecret].nextHash == bytes32(0)){
-            swaps[swaps[_hashedSecret].prevHash].nextHash=bytes32(0);
-        }else{
-             swaps[swaps[_hashedSecret].prevHash].nextHash=swaps[_hashedSecret].nextHash;
-             swaps[swaps[_hashedSecret].nextHash].prevHash=swaps[_hashedSecret].prevHash;
+
+        if (
+            swaps[_hashedSecret].prevHash == bytes32(0) &&
+            swaps[_hashedSecret].nextHash == bytes32(0)
+        ) {
+            head = bytes32(0);
+        } else if (swaps[_hashedSecret].prevHash == bytes32(0)) {
+            head = swaps[_hashedSecret].nextHash;
+            swaps[head].prevHash = bytes32(0);
+        } else if (swaps[_hashedSecret].nextHash == bytes32(0)) {
+            swaps[swaps[_hashedSecret].prevHash].nextHash = bytes32(0);
+        } else {
+            swaps[swaps[_hashedSecret].prevHash].nextHash = swaps[_hashedSecret]
+                .nextHash;
+            swaps[swaps[_hashedSecret].nextHash].prevHash = swaps[_hashedSecret]
+                .prevHash;
         }
 
         delete swaps[_hashedSecret];
-        count-=1;
+        count -= 1;
     }
 
-    function getAllSwaps()public view returns(Swap[] memory){
+    function getAllSwaps() public view returns (Swap[] memory) {
         Swap[] memory sps = new Swap[](count);
-        if(head==bytes32(0))
-            return sps;
+        if (head == bytes32(0)) return sps;
         Swap memory sp = swaps[head];
-        uint i=0;
-        while(sp.nextHash!=bytes32(0)){
+        uint256 i = 0;
+        while (sp.nextHash != bytes32(0)) {
             sps[i] = sp;
-            i+=1;
-            sp=swaps[sp.nextHash];
+            i += 1;
+            sp = swaps[sp.nextHash];
         }
-        sps[i]=sp;
+        sps[i] = sp;
         return sps;
     }
-    
+
     // for testing, not to be included in deployed contract
     function stringToSecret(string memory source)
         public
